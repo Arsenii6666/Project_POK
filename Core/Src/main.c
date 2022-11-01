@@ -47,6 +47,8 @@ I2S_HandleTypeDef hi2s3;
 
 SPI_HandleTypeDef hspi1;
 
+UART_HandleTypeDef huart2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -59,6 +61,7 @@ static void MX_I2C1_Init(void);
 static void MX_I2S2_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_USART2_UART_Init(void);
 void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
@@ -76,45 +79,71 @@ void MX_USB_HOST_Process(void);
   */
 int main(void)
 {
-	HAL_Init();
+  /* USER CODE BEGIN 1 */
 
-	MX_GPIO_Init();
-	MX_I2C1_Init();
-	MX_I2S2_Init();
-	MX_I2S3_Init();
-	MX_SPI1_Init();
+  /* USER CODE END 1 */
 
-	int16_t buffer[3] = {0, 0, 0};
-	  /* Infinite loop */
-	  /* USER CODE BEGIN WHILE */
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+
+/* Configure the peripherals common clocks */
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_I2C1_Init();
+  MX_I2S2_Init();
+  MX_I2S3_Init();
+  MX_SPI1_Init();
+  MX_USB_HOST_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  int16_t buffer[3] = {0, 0, 0};
 	BSP_ACCELERO_Init();
+	BSP_ACCELERO_GetXYZ(buffer);
+	double start_acceleration=(double)buffer[2]/16/1000.0;
 	  while (1)
 	  {
-	    /* USER CODE END WHILE */
+		  BSP_ACCELERO_GetXYZ(buffer);
+		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
+		  	    	if (acceleration == 0){
+		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		  	    	}
+		  	    	else{
+		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+		  	    	}
+		  		    if (acceleration < 0){
+		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+		  	        }
+		  	        else{
+		  	            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+		  	        }
+		  		    if (acceleration > 0){
+		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+		  		    }
+		  		    else{
+		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+		  		    }
 
-	    BSP_ACCELERO_GetXYZ(buffer);
-	    	if (buffer[2] == 0){
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-	    	}
-	    	else{
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-	    	}
-		    if (buffer[2] < 0){
-		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-	        }
-	        else{
-	            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-	        }
-		    if (buffer[2] > 0){
-		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-		    }
-		    else{
-		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-		    }
-
-	   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
-	    /* USER CODE BEGIN 3 */
-	  }
+		  	   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+  }
+  /* USER CODE END 3 */
 }
 
 /**
@@ -319,6 +348,39 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 
