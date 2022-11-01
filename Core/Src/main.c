@@ -47,8 +47,6 @@ I2S_HandleTypeDef hi2s3;
 
 SPI_HandleTypeDef hspi1;
 
-UART_HandleTypeDef huart2;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -118,30 +116,36 @@ int main(void)
 	BSP_ACCELERO_Init();
 	BSP_ACCELERO_GetXYZ(buffer);
 	double start_acceleration=(double)buffer[2]/16/1000.0;
+	double speed=0;
+	double height=0;
 	  while (1)
 	  {
 		  BSP_ACCELERO_GetXYZ(buffer);
 		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
-		  	    	if (acceleration == 0){
-		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-		  	    	}
-		  	    	else{
-		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-		  	    	}
-		  		    if (acceleration < 0){
-		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-		  	        }
-		  	        else{
-		  	            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-		  	        }
-		  		    if (acceleration > 0){
-		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-		  		    }
-		  		    else{
-		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-		  		    }
+		  		  	    	if (acceleration == 0){
+		  		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		  		  	    	}
+		  		  	    	else{
+		  		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+		  		  	    	}
+		  		  		    if (acceleration < 0){
+		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+		  		  	        }
+		  		  	        else{
+		  		  	            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+		  		  	        }
+		  		  		    if (acceleration > 0){
+		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+		  		  		    }
+		  		  		    else{
+		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+		  		  		    }
 
 		  	   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+    /* USER CODE END WHILE */
+
+
+    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -366,18 +370,6 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 1 */
 
   /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
