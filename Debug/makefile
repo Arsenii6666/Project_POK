@@ -92,8 +92,8 @@ all: main-build
 main-build: DriverSetup.elf secondary-outputs
 
 # Tool invocations
-DriverSetup.elf DriverSetup.map: $(OBJS) $(USER_OBJS) D:\C++\Project\DriverSetup\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "DriverSetup.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\C++\Project\DriverSetup\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DriverSetup.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+DriverSetup.elf DriverSetup.map: $(OBJS) $(USER_OBJS) D:\C++\Project\Project_POK\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "DriverSetup.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\C++\Project\Project_POK\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DriverSetup.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

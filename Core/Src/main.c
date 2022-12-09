@@ -115,33 +115,36 @@ int main(void)
   int16_t buffer[3] = {0, 0, 0};
 	BSP_ACCELERO_Init();
 	BSP_ACCELERO_GetXYZ(buffer);
-	double start_acceleration=(double)buffer[2]/16/1000.0;
+	double start_acceleration=1;
 	double speed=0;
 	double height=0;
 	  while (1)
 	  {
 		  BSP_ACCELERO_GetXYZ(buffer);
-		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
-		  		  	    	if (acceleration == 0){
-		  		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-		  		  	    	}
-		  		  	    	else{
-		  		  	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-		  		  	    	}
-		  		  		    if (acceleration < 0){
-		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-		  		  	        }
-		  		  	        else{
-		  		  	            HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-		  		  	        }
-		  		  		    if (acceleration > 0){
-		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-		  		  		    }
-		  		  		    else{
-		  		  		    	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-		  		  		    }
+		  double acceleration=round(((double)buffer[2]/16/1000.0-start_acceleration)*10)/10;
+		if (acceleration > -0.05 && acceleration < 0.08){
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		}
+		else{
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+		}
+		if (acceleration < -0.05){
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+		}
+		else {
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+		}
+		if (acceleration > 0.08){
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+		}
+		else {
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+		}
+		HAL_Delay(50);
 
-		  	   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+
+
+
     /* USER CODE END WHILE */
 
 

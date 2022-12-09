@@ -35,9 +35,9 @@ Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
  ../Drivers/BSP/STM32F411E-Discovery/../Components/lsm303dlhc/lsm303dlhc.h \
- d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h \
+ d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h \
  ../Drivers/BSP/STM32F411E-Discovery/../Components/lsm303agr/lsm303agr.h \
- d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h
+ d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h
 ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.h:
 ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -73,6 +73,6 @@ Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 ../Drivers/BSP/STM32F411E-Discovery/../Components/lsm303dlhc/lsm303dlhc.h:
-d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h:
+d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h:
 ../Drivers/BSP/STM32F411E-Discovery/../Components/lsm303agr/lsm303agr.h:
-d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h:
+d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h:

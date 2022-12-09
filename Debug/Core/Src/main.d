@@ -34,10 +34,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../USB_HOST/App/usb_host.h \
  ../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.h \
  ../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h \
- d:\c++\project\driversetup\drivers\bsp\components\lsm303dlhc\lsm303dlhc.h \
- d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h \
- d:\c++\project\driversetup\drivers\bsp\components\lsm303agr\lsm303agr.h \
- d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h
+ d:\c++\project\project_pok\drivers\bsp\components\lsm303dlhc\lsm303dlhc.h \
+ d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h \
+ d:\c++\project\project_pok\drivers\bsp\components\lsm303agr\lsm303agr.h \
+ d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -74,7 +74,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../USB_HOST/App/usb_host.h:
 ../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.h:
 ../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h:
-d:\c++\project\driversetup\drivers\bsp\components\lsm303dlhc\lsm303dlhc.h:
-d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h:
-d:\c++\project\driversetup\drivers\bsp\components\lsm303agr\lsm303agr.h:
-d:\c++\project\driversetup\drivers\bsp\components\common\accelero.h:
+d:\c++\project\project_pok\drivers\bsp\components\lsm303dlhc\lsm303dlhc.h:
+d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h:
+d:\c++\project\project_pok\drivers\bsp\components\lsm303agr\lsm303agr.h:
+d:\c++\project\project_pok\drivers\bsp\components\common\accelero.h:
