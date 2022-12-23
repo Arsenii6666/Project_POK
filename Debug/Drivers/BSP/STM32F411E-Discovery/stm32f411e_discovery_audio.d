@@ -1,4 +1,9 @@
-Core/Src/AUDIO_LINK.o: ../Core/Src/AUDIO_LINK.c ../Core/Inc/AUDIO_LINK.h \
+Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.o: \
+ ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.c \
+ ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.h \
+ ../Drivers/BSP/STM32F411E-Discovery/../Components/cs43l22/cs43l22.h \
+ d:\c++\project\project_pok\drivers\bsp\components\common\audio.h \
+ ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -31,8 +36,11 @@ Core/Src/AUDIO_LINK.o: ../Core/Src/AUDIO_LINK.c ../Core/Inc/AUDIO_LINK.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- ../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h
-../Core/Inc/AUDIO_LINK.h:
+ d:\c++\project\project_pok\middlewares\st\stm32_audio\addons\pdm\inc\pdm2pcm_glo.h
+../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.h:
+../Drivers/BSP/STM32F411E-Discovery/../Components/cs43l22/cs43l22.h:
+d:\c++\project\project_pok\drivers\bsp\components\common\audio.h:
+../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -65,4 +73,4 @@ Core/Src/AUDIO_LINK.o: ../Core/Src/AUDIO_LINK.c ../Core/Inc/AUDIO_LINK.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
-../Core/Src/../../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.h:
+d:\c++\project\project_pok\middlewares\st\stm32_audio\addons\pdm\inc\pdm2pcm_glo.h:

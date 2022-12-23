@@ -6,15 +6,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.c \
-../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.c 
+../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.c \
+../Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.c 
 
 OBJS += \
 ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.o \
-./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o 
+./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o \
+./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.o 
 
 C_DEPS += \
 ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.d \
-./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.d 
+./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.d \
+./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,7 +27,7 @@ Drivers/BSP/STM32F411E-Discovery/%.o Drivers/BSP/STM32F411E-Discovery/%.su: ../D
 clean: clean-Drivers-2f-BSP-2f-STM32F411E-2d-Discovery
 
 clean-Drivers-2f-BSP-2f-STM32F411E-2d-Discovery:
-	-$(RM) ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.d ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.o ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.su ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.d ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.su
+	-$(RM) ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.d ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.o ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery.su ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.d ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.o ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_accelerometer.su ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.d ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.o ./Drivers/BSP/STM32F411E-Discovery/stm32f411e_discovery_audio.su
 
 .PHONY: clean-Drivers-2f-BSP-2f-STM32F411E-2d-Discovery
 
