@@ -48,6 +48,7 @@ RM := rm -rf
 -include Drivers/BSP/Components/cs43l22/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Audio/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
