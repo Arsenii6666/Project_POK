@@ -18,16 +18,6 @@
 #include "main.h"
 #include "fatfs.h"
 #include "usb_host.h"
-<<<<<<< Updated upstream
-=======
-#include "waveplayer.h"
-#include "File_Handling.h"
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "fatfs.h"
-#include "usb_host.h"
->>>>>>> Stashed changes
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
