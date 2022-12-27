@@ -120,6 +120,7 @@ AUDIO_ErrorTypeDef AUDIO_PLAYER_Start(uint8_t idx)
 
     //Open WAV file
     f_open(&WavFile, (char *)FileList.file[idx].name, FA_READ);
+
     //Read WAV file Header
     f_read(&WavFile, &WaveFormat, sizeof(WaveFormat), &bytesread);
     
