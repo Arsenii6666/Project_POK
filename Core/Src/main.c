@@ -31,6 +31,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern ApplicationTypeDef Appli_state;
+int isUSBMounted = 0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -64,7 +65,7 @@ static void MX_SPI1_Init(void);
 void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
-
+void Sound_play(const char* FILENAME);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -108,7 +109,7 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   CS43_Init(hi2c1, MODE_I2S);
-  CS43_SetVolume(180);
+  CS43_SetVolume(255);
   CS43_Enable_RightLeft(CS43_RIGHT_LEFT);
   audioI2S_setHandle(&hi2s3);
   /* USER CODE END 2 */
@@ -127,67 +128,48 @@ int main(void)
 	int array[]={0,0,0};
 	size_t i = 0;
 	const char* FILENAME = "a.wav";
-	int isUSBMounted = 0;
+
 	  while (1)
 	  {
 
-//		  BSP_ACCELERO_GetXYZ(buffer);
-//		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
-//		if ((-bound<acceleration) &&  (acceleration<bound)){
-//			array[0] += 1;
-//		}
-//		if (acceleration < -bound){
-//			array[1] += 1;
-//			if (goDown){
-//				count2+=1;
-//			}
-//			goDown=0;
-//		}
-//		if (acceleration > bound){
-//			array[2] += 1;
-//			if (!goDown){
-//				count1+=1;
-//			}
-//			goDown=1;
-//		}
-//		if ((count1>=10)&&(count2>=10)){
-//			i = 0;
-//			count1 = 0;
-//			count2 = 0;
-//		}
-//		i += 1;
-//
-//		HAL_Delay(200);
+		  BSP_ACCELERO_GetXYZ(buffer);
+		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
+		if ((-bound<acceleration) &&  (acceleration<bound)){
+			array[0] += 1;
+		}
+		if (acceleration < -bound){
+			array[1] += 1;
+			if (goDown){
+				count2+=1;
+			}
+			goDown=0;
+		}
+		if (acceleration > bound){
+			array[2] += 1;
+			if (!goDown){
+				count1+=1;
+				Sound_play(FILENAME);
+			}
+			goDown=1;
+		}
+		if ((count1>=10)&&(count2>=10)){
+			i = 0;
+			count1 = 0;
+			count2 = 0;
+		}
+		i += 1;
+
+		HAL_Delay(200);
 
     /* USER CODE END WHILE */
-	if (Appli_state != APPLICATION_READY){
-    MX_USB_HOST_Process();}
+    MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
-    if(Appli_state == APPLICATION_READY)
-            {
-              if(!isUSBMounted)
-              {
-                f_mount(&USBHFatFS, (const TCHAR*)USBHPath, 0);
-                isUSBMounted = 1;
-              }
-              if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
-              {
-            	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-                HAL_Delay(500);
-                wavPlayer_fileSelect(FILENAME);
-                wavPlayer_play();
 
-                while(!wavPlayer_isFinished())
-                {
-                  wavPlayer_process();
-                }
-                wavPlayer_stop();
   /* USER CODE END 3 */
-              }
        }
 	 }
-}
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -455,6 +437,30 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void Sound_play(const char* FILENAME){
+	while (Appli_state != APPLICATION_READY) {
+
+	}
+	if(!isUSBMounted)
+	  {
+		f_mount(&USBHFatFS, (const TCHAR*)USBHPath, 0);
+		isUSBMounted = 1;
+	  }
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+		HAL_Delay(500);
+		wavPlayer_fileSelect(FILENAME);
+		wavPlayer_play();
+
+		while(!wavPlayer_isFinished())
+		{
+			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+		  wavPlayer_process();
+		}
+		wavPlayer_stop();
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+}
+
 
 /* USER CODE END 4 */
 
