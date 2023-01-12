@@ -128,7 +128,8 @@ int main(void)
 	int array[]={0,0,0};
 	size_t i = 0;
 	const char* FILENAME = "a.wav";
-
+	//while (Appli_state != APPLICATION_READY) {}
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
 	  while (1)
 	  {
 
@@ -439,16 +440,13 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 void Sound_play(const char* FILENAME){
-	while (Appli_state != APPLICATION_READY) {
-
-	}
 	if(!isUSBMounted)
 	  {
 		f_mount(&USBHFatFS, (const TCHAR*)USBHPath, 0);
 		isUSBMounted = 1;
 	  }
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-		HAL_Delay(500);
+		//HAL_Delay(500);
 		wavPlayer_fileSelect(FILENAME);
 		wavPlayer_play();
 
