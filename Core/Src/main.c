@@ -104,7 +104,7 @@ int main(void)
   MX_DMA_Init();
   MX_I2C1_Init();
   MX_I2S3_Init();
-//  MX_SPI1_Init();
+  MX_SPI1_Init();
   MX_USB_HOST_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
@@ -166,10 +166,9 @@ int main(void)
     MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
-
+	  }
   /* USER CODE END 3 */
-       }
-	 }
+}
 
 /**
   * @brief System Clock Configuration
@@ -441,10 +440,15 @@ static void MX_GPIO_Init(void)
 
 void Sound_play(const char* FILENAME){
 	if(!isUSBMounted)
-	  {
-		f_mount(&USBHFatFS, (const TCHAR*)USBHPath, 0);
-		isUSBMounted = 1;
-	  }
+		  {
+			if (f_mount(&USBHFatFS, (const TCHAR*)USBHPath, 0) == FR_OK) {
+				isUSBMounted = 1;
+			}
+		  }
+
+	while (Appli_state != APPLICATION_READY) {
+		MX_USB_HOST_Process();
+	}
 		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
 		//HAL_Delay(500);
 		wavPlayer_fileSelect(FILENAME);
