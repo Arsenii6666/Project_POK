@@ -21,6 +21,7 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Audio \
 Core/Src \
 Core/Startup \
 Drivers/BSP/Components/cs43l22 \
