@@ -120,18 +120,6 @@ int main(void)
 	BSP_ACCELERO_Init();
 	BSP_ACCELERO_GetXYZ(buffer);
 	double start_acceleration=1;
-<<<<<<< Updated upstream
-	double bound=0.2;
-	int count1=0;
-	int count2=0;
-	int goDown=1;
-	int state=0;	//1 - ground, 2 - rising, 3 - max height, 4 -
-	int array[]={0,0,0};
-	size_t i = 0;
-	const char* FILENAME = "a.wav";
-	//while (Appli_state != APPLICATION_READY) {}
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-=======
 	double bound=0.3;
 	uint8_t count=0;
 	const char* FILENAME_START="intro.wav";
@@ -143,40 +131,11 @@ int main(void)
 	  HAL_GPIO_WritePin(CC2_GPIO_Port, CC2_Pin, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(DP_GPIO_Port, DP_Pin, GPIO_PIN_SET);
 	uint32_t time=0;
->>>>>>> Stashed changes
 	  while (1)
 	  {
 
 		  BSP_ACCELERO_GetXYZ(buffer);
 		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
-<<<<<<< Updated upstream
-		if ((-bound<acceleration) &&  (acceleration<bound)){
-			array[0] += 1;
-		}
-		if (acceleration < -bound){
-			array[1] += 1;
-			if (goDown){
-				count2+=1;
-			}
-			goDown=0;
-		}
-		if (acceleration > bound){
-			array[2] += 1;
-			if (!goDown){
-				count1+=1;
-				Sound_play(FILENAME);
-			}
-			goDown=1;
-		}
-		if ((count1>=10)&&(count2>=10)){
-			i = 0;
-			count1 = 0;
-			count2 = 0;
-		}
-		i += 1;
-
-		HAL_Delay(200);
-=======
 		 if (state==0){
 			 if (acceleration < -bound){
 				 if (time>exercise_time){
@@ -201,7 +160,6 @@ int main(void)
 		time+=1;
 		Set_Display_Number(count);
 		HAL_Delay(10);
->>>>>>> Stashed changes
 
     /* USER CODE END WHILE */
     MX_USB_HOST_Process();
