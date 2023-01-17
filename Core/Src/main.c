@@ -120,6 +120,7 @@ int main(void)
 	BSP_ACCELERO_Init();
 	BSP_ACCELERO_GetXYZ(buffer);
 	double start_acceleration=1;
+<<<<<<< Updated upstream
 	double bound=0.2;
 	int count1=0;
 	int count2=0;
@@ -130,11 +131,25 @@ int main(void)
 	const char* FILENAME = "a.wav";
 	//while (Appli_state != APPLICATION_READY) {}
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+=======
+	double bound=0.3;
+	uint8_t count=0;
+	const char* FILENAME_START="intro.wav";
+	const char* FILENAME[10] = {"raz.wav", "dva.wav", "try.wav", "chotyry.wav", "piat.wav", "shist.wav", "sim.wav", "visim.wav", "deviat.wav", "desiat.wav"};
+	Sound_play(FILENAME_START);
+	uint8_t state=0;
+	uint32_t exercise_time=30;
+	HAL_GPIO_WritePin(CC1_GPIO_Port, CC1_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(CC2_GPIO_Port, CC2_Pin, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(DP_GPIO_Port, DP_Pin, GPIO_PIN_SET);
+	uint32_t time=0;
+>>>>>>> Stashed changes
 	  while (1)
 	  {
 
 		  BSP_ACCELERO_GetXYZ(buffer);
 		  double acceleration=(double)buffer[2]/16/1000.0-start_acceleration;
+<<<<<<< Updated upstream
 		if ((-bound<acceleration) &&  (acceleration<bound)){
 			array[0] += 1;
 		}
@@ -161,6 +176,32 @@ int main(void)
 		i += 1;
 
 		HAL_Delay(200);
+=======
+		 if (state==0){
+			 if (acceleration < -bound){
+				 if (time>exercise_time){
+					 state=1;
+				 }
+				 time=0;
+			 }
+		 }
+		 else{
+			 if (acceleration > bound){
+					 if (time>exercise_time){
+						 state=0;
+						 Sound_play(FILENAME[count]);
+						 count+=1;
+					 }
+					 time=0;
+			 }
+		 }
+		if (count>=10){
+			count = 0;
+		}
+		time+=1;
+		Set_Display_Number(count);
+		HAL_Delay(10);
+>>>>>>> Stashed changes
 
     /* USER CODE END WHILE */
     MX_USB_HOST_Process();
@@ -355,13 +396,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, CS_I2C_SPI_Pin|E_Pin|D_Pin|CC2_Pin
+                          |C_Pin|DP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, OTG_FS_PowerSwitchOn_Pin|G_Pin|F_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, CC1_Pin|A_Pin|B_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
@@ -373,21 +418,23 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(DATA_Ready_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : CS_I2C_SPI_Pin */
-  GPIO_InitStruct.Pin = CS_I2C_SPI_Pin;
+  /*Configure GPIO pins : CS_I2C_SPI_Pin E_Pin D_Pin CC2_Pin
+                           C_Pin DP_Pin */
+  GPIO_InitStruct.Pin = CS_I2C_SPI_Pin|E_Pin|D_Pin|CC2_Pin
+                          |C_Pin|DP_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(CS_I2C_SPI_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : INT1_Pin INT2_Pin MEMS_INT2_Pin */
-  GPIO_InitStruct.Pin = INT1_Pin|INT2_Pin|MEMS_INT2_Pin;
+  /*Configure GPIO pins : INT2_Pin MEMS_INT2_Pin */
+  GPIO_InitStruct.Pin = INT2_Pin|MEMS_INT2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : OTG_FS_PowerSwitchOn_Pin PC1 */
-  GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin|GPIO_PIN_1;
+  /*Configure GPIO pins : OTG_FS_PowerSwitchOn_Pin PC1 G_Pin F_Pin */
+  GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin|GPIO_PIN_1|G_Pin|F_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -406,6 +453,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : CC1_Pin A_Pin B_Pin */
+  GPIO_InitStruct.Pin = CC1_Pin|A_Pin|B_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CLK_IN_Pin PB12 */
   GPIO_InitStruct.Pin = CLK_IN_Pin|GPIO_PIN_12;
@@ -437,6 +491,26 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void Set_Display_Number(uint8_t number) {
+  uint8_t segmentNumber[10] = {
+            0x3f, //0
+            0x06, //1
+        0x5b, //2
+            0x4f, //3
+            0x66, //4
+        0x6d, //5
+            0x7d, //6
+            0x07, //7
+            0x7f, //8
+            0x67, //9
+        };
+    uint16_t ledpins[7] = {A_Pin, B_Pin, C_Pin, D_Pin, E_Pin, F_Pin, G_Pin};
+    GPIO_TypeDef *ledpins_ports[7] = {A_GPIO_Port, B_GPIO_Port, C_GPIO_Port, D_GPIO_Port, E_GPIO_Port, F_GPIO_Port, G_GPIO_Port};
+  for (int i = 0; i < 7; ++i) {
+    HAL_GPIO_WritePin(ledpins_ports[i], ledpins[i], !((segmentNumber[number] >> i) & 1));
+    }
+}
 
 void Sound_play(const char* FILENAME){
 	if(!isUSBMounted)
